@@ -1,64 +1,72 @@
 import React from 'react';
-import {TasksType} from "./App";
+import {FilterValueType, TasksType} from "./App";
 import {Button} from "./Button";
 
 type TodolistPropsType = {
     title: string
-    tasks: Array<TasksType>
+    tasks: TasksType[]
+    removeTasks: (tId: number)=> void
+    changeFilter: (val: FilterValueType) => void
 
 }
 
-export const Todolist = (props: TodolistPropsType) => {
-    //или рои помощи тернарника
-    // const tasksList: JSX.Element = props.tasks.length === 0
-    //     ? <div>Ваш список дел пуст</div>
-    //     : <ul>
-    //         // {
-    //                      props.tasks.map((t: TasksType) => {
-    //                          return (
-    //                             <li key={t.id}>
-    //                                  <input type="checkbox" checked={t.isDone}/>
-    //                                <span>{t.title}</span>
-    //                             </li>
-    //                         )
-    //                     })
-    //     }
-    //                     </ul>
+export const Todolist = ({title, tasks, removeTasks, changeFilter}: TodolistPropsType) => {
+    //или  помощи тернарника
 
-    let tasksList;
-    if (props.tasks.length === 0) {
-        tasksList = <div>Ваш список дел пуст</div>
-    } else {
-        tasksList = <ul>
-            {
-                props.tasks.map((t: TasksType) => {
-                    return (
-                        <li key={t.id}>
-                            <button>X</button>
-                            <input type="checkbox" checked={t.isDone}/>
-                            <span>{t.title}</span>
-                        </li>
-                    )
-                })
-            }
-        </ul>
-    }
+
+
+    // let tasksList;
+    // if (props.tasks.length === 0) {
+    //     tasksList = <div>Ваш список дел пуст</div>
+    // } else {
+    //     tasksList = <ul>
+    //         {
+    //             props.tasks.map((t: TasksType) => {
+    //                 return (
+    //                     <li key={t.id}>
+    //                         <button>X</button>
+    //                         <input type="checkbox" checked={t.isDone}/>
+    //                         <span>{t.title}</span>
+    //                     </li>
+    //                 )
+    //             })
+    //         }
+    //     </ul>
+    // }
 
     return (
 
         <div className="App">
             <div className="todolost">
-                <h3>{props.title}</h3>
+                <h3>{title}</h3>
                 <div>
                     <input/>
                     <Button title={'+'}/>
-                    <button>+</button>
+
                 </div>
-                {tasksList}
+                {
+                tasks.length === 0
+                ? <div>Ваш список дел пуст</div>
+                : <ul>
+                {tasks.map((t: TasksType) => {
+                        return (
+                            <li key={t.id}>
+                                <button onClick={() => removeTasks(t.id)}>X</button>
+                                <input type="checkbox" checked={t.isDone}/>
+                                <span>{t.title}</span>
+                            </li>
+                        )
+                    })}
+            </ul>
+                }
+                {/*{tasksList}*/}
                 <div>
-                    <Button title={'All'}/>
-                    <Button title={'Active'}/>
-                    <Button title={'Completed'}/>
+                   <button onClick={() => changeFilter('All')}>All</button>
+                    <button onClick={() => changeFilter('Active')}>Active</button>
+                    <button onClick={() => changeFilter('Complete')}>Complete</button>
+                    {/*<Button title={'All'}/>*/}
+                    {/*<Button title={'Active'}/>*/}
+                    {/*<Button title={'Completed'}/>*/}
                 </div>
             </div>
         </div>
