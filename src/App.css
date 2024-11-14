@@ -1,0 +1,17 @@
+.App {
+  padding: 30px;
+  display: flex;
+}
+
+.App > div {
+  margin-right: 50px;
+}
+
+.todolost {
+  /*background-color: bisque;*/
+  /*border: 2px solid darkgoldenrod;*/
+  background-color: #f8d5e0;
+  border: 2px solid #c669c4;
+  border-radius: 5px;
+  padding: 15px;
+}
