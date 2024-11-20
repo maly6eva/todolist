@@ -3,11 +3,28 @@ import React from 'react';
 
 type ButtonPropsType = {
     title: string
+    starter?: () => void
+    clickTask?: () => void
+    removeTasks?: () => void
 }
 
-export const Button = (props:  ButtonPropsType) => {
+export const Button = ({ title, starter, clickTask, removeTasks}:  ButtonPropsType) => {
+
+    const onClickHandler = () => {
+
+        if (starter) {
+            starter()
+        }
+        if (clickTask) {
+            clickTask()
+        }
+        if (removeTasks) {
+            removeTasks()
+        }
+    }
+
     return (
-        <button>{props.title}</button>
+        <button onClick={onClickHandler}>{title}</button>
     );
 };
 
