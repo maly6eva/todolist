@@ -6,9 +6,12 @@ type ButtonPropsType = {
     starter?: () => void
     clickTask?: () => void
     removeTasks?: () => void
+    className?: string
+    onClick?: () => void
+
 }
 
-export const Button = ({ title, starter, clickTask, removeTasks}:  ButtonPropsType) => {
+export const Button = ({ title, starter, clickTask, removeTasks, className, onClick}:  ButtonPropsType) => {
 
     const onClickHandler = () => {
 
@@ -24,7 +27,7 @@ export const Button = ({ title, starter, clickTask, removeTasks}:  ButtonPropsTy
     }
 
     return (
-        <button onClick={onClickHandler}>{title}</button>
+        <button onClick={onClickHandler} className={className} >{title}</button>
     );
 };
 
