@@ -9,9 +9,10 @@ type PropsType = {
     changeFilter: (filter: FilterValuesType) => void
     addTask: (title: string) => void
     changeTaskStatus: (taskId: string, taskStatus: boolean) => void
+    filter: FilterValuesType
 }
 
-export const Todolist = ({title, tasks, removeTask, changeFilter, addTask, changeTaskStatus}: PropsType) => {
+export const Todolist = ({title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter}: PropsType) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -68,7 +69,7 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask, chang
                                 changeTaskStatus(task.id, newStatusValue)
                             }
 
-                            return <li key={task.id}>
+                            return <li key={task.id} className={task.isDone ? 'is-done': ''}>
                                 <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
                                 <span>{task.title}</span>
                                 <Button onClick={removeTaskHandler} title={'x'}/>
@@ -77,9 +78,9 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask, chang
                     </ul>
             }
             <div>
-                <Button title={'All'} onClick={() => changeFilterTasksHandler('all')}/>
-                <Button title={'Active'} onClick={() => changeFilterTasksHandler('active')}/>
-                <Button title={'Completed'} onClick={() => changeFilterTasksHandler('completed')}/>
+                <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'} onClick={() => changeFilterTasksHandler('all')}/>
+                <Button  className={filter === 'active' ? 'active-filter' : ''} title={'Active'} onClick={() => changeFilterTasksHandler('active')}/>
+                <Button  className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'} onClick={() => changeFilterTasksHandler('completed')}/>
             </div>
         </div>
     )

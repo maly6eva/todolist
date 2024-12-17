@@ -7,15 +7,6 @@
   margin-right: 50px;
 }
 
-.todolost {
-  /*background-color: bisque;*/
-  /*border: 2px solid darkgoldenrod;*/
-  background-color: #f8d5e0;
-  border: 2px solid #c669c4;
-  border-radius: 5px;
-  padding: 15px;
-}
-
 .error {
   border: red 1px solid;
 }
@@ -24,5 +15,9 @@
   color: red;
 }
 .active-filter {
-  background-color: #4a85ef;
+  background-color: aquamarine;
+}
+
+.is-done {
+  opacity: 0.5;
 }
