@@ -57,7 +57,7 @@ function App() {
 
     const addTask = (todolistId: string,title: string) => {
         const newTask = { id: v1(), title: title, isDone: false }
-        setTasks({...tasks, [todolistId] : [...tasks[todolistId], newTask]
+        setTasks({ ...tasks, [todolistId] :  [newTask, ...tasks[todolistId] ]
         } )
         // const newTask = {
         //     id: v1(),

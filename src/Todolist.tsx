@@ -1,6 +1,7 @@
 import {FilterValuesType, TaskType} from "./App";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {Button} from "./Button";
+import {AddItemForm} from "./AddItemForm";
 
 type PropsType = {
     todolistId: string
@@ -16,9 +17,6 @@ type PropsType = {
 
 
 export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter,  removeTodolist}: PropsType) => {
-    const [taskTitle, setTaskTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
-
 
     //todo refactor
     // let tasksForTodolist = tasks
@@ -29,25 +27,7 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
     //     tasksForTodolist = tasks.filter(task => task.isDone)
     // }
 
-    const addTaskHandler = () => {
-        if (taskTitle.trim() !== '') {
-            addTask(todolistId,taskTitle.trim())
-            setTaskTitle('')
-        } else {
-            setError('Title is required')
-        }
-    }
 
-    const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(event.currentTarget.value)
-    }
-
-    const addTaskOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (event.key === 'Enter') {
-            addTaskHandler()
-        }
-    }
 
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
         changeFilter(todolistId, filter)
@@ -63,16 +43,9 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
                 {title}
                 <Button title={'+'} onClick={removeTodolistOnclick}/>
             </h3>
-            <div>
-                <input
-                    className={error ? 'error' : ''}
-                    value={taskTitle}
-                    onChange={changeTaskTitleHandler}
-                    onKeyUp={addTaskOnKeyUpHandler}
-                />
-                <Button title={'+'} onClick={addTaskHandler}/>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+
+            <AddItemForm addTask={addTask} todolistId={todolistId}/>
+
             {
                 tasks.length === 0
                     ? <p>Тасок нет</p>
