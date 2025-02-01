@@ -37,6 +37,10 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
         removeTodolist(todolistId )
     }
 
+    const addTaskHandler = (title: string) => {
+        addTask( todolistId, title)
+    }
+
     return (
         <div>
             <h3>
@@ -44,7 +48,7 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
                 <Button title={'+'} onClick={removeTodolistOnclick}/>
             </h3>
 
-            <AddItemForm addTask={addTask} todolistId={todolistId}/>
+            <AddItemForm addItem={addTaskHandler }/>
 
             {
                 tasks.length === 0
