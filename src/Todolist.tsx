@@ -47,10 +47,11 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
     const updateTodolistTitleHandler = ( updateTitle: string) => {
         updateTodolistTitle(todolistId, updateTitle)
 
-
     }
 
-
+    const updateTaskTitleHandler = (taskId: string, updateTitle: string) => {
+        updateTaskTitle(todolistId, taskId, updateTitle)
+    }
 
     return (
         <div>
@@ -75,12 +76,10 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
                                 changeTaskStatus(todolistId, task.id, newStatusValue)
                             }
 
-                            const updateTaskTitleHandler = (updateTitle: string) => {
-                                updateTaskTitle(todolistId, task.id, updateTitle)
-                            }
+
                             return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
-                                    <EditableSpan oldTitle={task.title}  onClick={ updateTaskTitleHandler}/>
+                                    <EditableSpan oldTitle={task.title}  onClick={(updateTitle) => updateTaskTitleHandler(task.id, updateTitle)}/>
                                 <Button onClick={removeTaskHandler} title={'x'}/>
                             </li>
                         })}
