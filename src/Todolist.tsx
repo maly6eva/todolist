@@ -15,10 +15,11 @@ type PropsType = {
     filter: FilterValuesType
     removeTodolist: (todolistId: string) => void
     updateTaskTitle: (todolistId: string, taskId: string, updatedTitle: string) => void
+    updateTodolistTitle: (todolistId: string, updatedTitle: string) => void
 }
 
 
-export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter,  removeTodolist, updateTaskTitle}: PropsType) => {
+export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter,  removeTodolist, updateTaskTitle, updateTodolistTitle}: PropsType) => {
 
     //todo refactor
     // let tasksForTodolist = tasks
@@ -43,12 +44,18 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
         addTask( todolistId, title)
     }
 
+    const updateTodolistTitleHandler = ( updateTitle: string) => {
+        updateTodolistTitle(todolistId, updateTitle)
+
+
+    }
+
 
 
     return (
         <div>
             <h3>
-                {title}
+                <EditableSpan onClick={updateTodolistTitleHandler} oldTitle={title}/>
                 <Button title={'+'} onClick={removeTodolistOnclick}/>
             </h3>
 
