@@ -21,7 +21,8 @@ export const EditableSpan = ({oldTitle, onClick}: Props) => {
 
     return (
         edit
-            ? <input value={updateTitle}
+            ?
+            <input value={updateTitle}
                      onBlur={editHandler}
                      onChange={updateTitleHandler}
                      autoFocus

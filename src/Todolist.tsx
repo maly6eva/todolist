@@ -1,8 +1,15 @@
 import {FilterValuesType, TaskType} from "./App";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button} from "./Button";
-import {AddItemForm} from "./AddItemForm";
+// import {Button} from "./Button";
+
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Stack from '@mui/material/Stack';
 import {EditableSpan} from "./EditableSpan";
+import {AddItemForm} from "./AddItemForm";
+import { pink } from '@mui/material/colors';
+import Checkbox from '@mui/material/Checkbox';
 
 type PropsType = {
     todolistId: string
@@ -17,6 +24,8 @@ type PropsType = {
     updateTaskTitle: (todolistId: string, taskId: string, updatedTitle: string) => void
     updateTodolistTitle: (todolistId: string, updatedTitle: string) => void
 }
+
+
 
 
 export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter,  removeTodolist, updateTaskTitle, updateTodolistTitle}: PropsType) => {
@@ -57,7 +66,10 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
         <div>
             <h3>
                 <EditableSpan onClick={updateTodolistTitleHandler} oldTitle={title}/>
-                <Button title={'+'} onClick={removeTodolistOnclick}/>
+                <IconButton onClick={removeTodolistOnclick} color='secondary' >
+                    <DeleteIcon />
+                </IconButton>
+
             </h3>
 
             <AddItemForm addItem={addTaskHandler }/>
@@ -76,23 +88,38 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
                                 changeTaskStatus(todolistId, task.id, newStatusValue)
                             }
 
+                            const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
                             return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
+
+                                <Checkbox {...label} defaultChecked  checked={task.isDone} onChange={changeTaskStatusHandler} color='secondary'/>
                                     <EditableSpan oldTitle={task.title}  onClick={(updateTitle) => updateTaskTitleHandler(task.id, updateTitle)}/>
-                                <Button onClick={removeTaskHandler} title={'x'}/>
+
+                                <IconButton onClick={removeTaskHandler} aria-label="delete" color='secondary'>
+                                    <DeleteIcon />
+                                </IconButton>
+
                             </li>
                         })}
                     </ul>
             }
-            <div>
-                <Button className={filter === 'all' ? 'active-filter' : ''} title={'All'}
-                        onClick={() => changeFilterTasksHandler('all')}/>
-                <Button className={filter === 'active' ? 'active-filter' : ''} title={'Active'}
-                        onClick={() => changeFilterTasksHandler('active')}/>
-                <Button className={filter === 'completed' ? 'active-filter' : ''} title={'Completed'}
-                        onClick={() => changeFilterTasksHandler('completed')}/>
-            </div>
+            <Stack direction="row" spacing={1}>
+                <Button
+                    size='small'
+                    variant='contained'
+                    color={filter === 'all' ? 'secondary' : 'primary'}
+                        onClick={() => changeFilterTasksHandler('all')}>All</Button>
+                <Button
+                    size='small'
+                    variant='contained'
+                    color={filter === 'active' ? 'secondary' : 'primary'}
+                        onClick={() => changeFilterTasksHandler('active')}>Active</Button>
+                <Button
+                    size='small'
+                    variant='contained'
+                    color={filter === 'completed' ? 'secondary' : 'primary'}
+                        onClick={() => changeFilterTasksHandler('completed')}>Completed</Button>
+            </ Stack>
         </div>
     )
 }

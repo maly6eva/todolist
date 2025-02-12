@@ -1,12 +1,14 @@
 // @flow
 import * as React from 'react';
-import {Button} from "./Button";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
 
 type Props = {
     addItem: ( title: string) => void
 
 };
+
 
 export const AddItemForm = ({addItem}: Props) => {
     const [itemTitle, setItemTitle] = useState('')
@@ -33,13 +35,27 @@ export const AddItemForm = ({addItem}: Props) => {
     }
     return (
         <div>
+
+
             <input
                 className={error ? 'error' : ''}
                 value={itemTitle}
                 onChange={changeItemTitleHandler}
                 onKeyUp={addItemOnKeyUpHandler}
             />
-            <Button title={'+'} onClick={addTaskHandler}/>
+
+
+
+            <Button
+                variant="outlined"
+                size='small'
+                onClick={addTaskHandler}
+                endIcon={<SendIcon />}
+                color='secondary'
+            >
+
+                Send
+            </Button>
             {error && <div className={'error-message'}>{error}</div>}
         </div>
     );
