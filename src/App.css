@@ -1,18 +1,18 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
 
 .error {
-  border: red 1px solid;
+  border: #f31111 1px solid;
 }
 
 .error-message {
-  color: red;
+  color: #e82f2f;
 }
 .active-filter {
   background-color: aquamarine;

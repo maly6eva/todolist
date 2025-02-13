@@ -1,6 +1,7 @@
 import {FilterValuesType, TaskType} from "./App";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
-// import {Button} from "./Button";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton'
@@ -8,7 +9,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Stack from '@mui/material/Stack';
 import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
-import { pink } from '@mui/material/colors';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 import Checkbox from '@mui/material/Checkbox';
 
 type PropsType = {
@@ -29,17 +31,6 @@ type PropsType = {
 
 
 export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter,  removeTodolist, updateTaskTitle, updateTodolistTitle}: PropsType) => {
-
-    //todo refactor
-    // let tasksForTodolist = tasks
-    // if (el.filter === 'active') {
-    //     tasksForTodolist = tasks.filter(task => task.isDone)
-    // }
-    // if (el.filter === 'completed') {
-    //     tasksForTodolist = tasks.filter(task => task.isDone)
-    // }
-
-
 
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
         changeFilter(todolistId, filter)
@@ -66,7 +57,7 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
         <div>
             <h3>
                 <EditableSpan onClick={updateTodolistTitleHandler} oldTitle={title}/>
-                <IconButton onClick={removeTodolistOnclick} color='secondary' >
+                <IconButton onClick={removeTodolistOnclick} color='primary' >
                     <DeleteIcon />
                 </IconButton>
 
@@ -77,7 +68,7 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
             {
                 tasks.length === 0
                     ? <p>Тасок нет</p>
-                    : <ul>
+                    : <List>
                         {tasks.map((task) => {
 
                             const removeTaskHandler = () => {
@@ -90,18 +81,26 @@ export const Todolist = ({todolistId, title, tasks, removeTask, changeFilter, ad
 
                             const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-                            return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
+                            return (
+                                <ListItem
+                                    sx={{opacity: task.isDone ? 0.5 : 1}}
+                                    disablePadding
+                                    key={task.id}
+                                    // className={task.isDone ? 'is-done' : ''}
+                                    secondaryAction={
 
-                                <Checkbox {...label} defaultChecked  checked={task.isDone} onChange={changeTaskStatusHandler} color='secondary'/>
+                                        <IconButton onClick={removeTaskHandler} aria-label="delete" color='primary' >
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    }
+                                >
+
+                                    <Checkbox {...label} checked={task.isDone} onChange={changeTaskStatusHandler} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  color='secondary' />
                                     <EditableSpan oldTitle={task.title}  onClick={(updateTitle) => updateTaskTitleHandler(task.id, updateTitle)}/>
-
-                                <IconButton onClick={removeTaskHandler} aria-label="delete" color='secondary'>
-                                    <DeleteIcon />
-                                </IconButton>
-
-                            </li>
+                                </ListItem>
+                                )
                         })}
-                    </ul>
+                    </List>
             }
             <Stack direction="row" spacing={1}>
                 <Button

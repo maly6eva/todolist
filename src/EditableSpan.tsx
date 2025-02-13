@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import {ChangeEvent, useState} from "react";
+import TextField from '@mui/material/TextField';
 
 type Props = {
     oldTitle: string
@@ -22,7 +23,11 @@ export const EditableSpan = ({oldTitle, onClick}: Props) => {
     return (
         edit
             ?
-            <input value={updateTitle}
+            <TextField
+                id="outlined-basic"
+                size="small"
+                variant="outlined"
+                value={updateTitle}
                      onBlur={editHandler}
                      onChange={updateTitleHandler}
                      autoFocus

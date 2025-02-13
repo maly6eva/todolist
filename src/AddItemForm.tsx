@@ -3,6 +3,7 @@ import * as React from 'react';
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 type Props = {
     addItem: ( title: string) => void
@@ -36,13 +37,22 @@ export const AddItemForm = ({addItem}: Props) => {
     return (
         <div>
 
-
-            <input
-                className={error ? 'error' : ''}
-                value={itemTitle}
-                onChange={changeItemTitleHandler}
-                onKeyUp={addItemOnKeyUpHandler}
+            <TextField
+                       size='small'
+                       id="outlined-basic" label="Outlined..." variant="outlined"
+                       className={error ? 'error' : ''}
+                       value={itemTitle}
+                       onChange={changeItemTitleHandler}
+                       onKeyUp={addItemOnKeyUpHandler}
+                       error={!!error}
+                       sx={{
+                           width: '180px',  // 👈 уменьшаем ширину
+                           '& .MuiInputBase-root': { height: '30px', fontSize: '20px' }, // 👈 уменьшаем высоту и шрифт внутри
+                           '& .MuiInputLabel-root': { fontSize: '15px' }, // 👈 уменьшаем размер label
+                           '& .MuiOutlinedInput-root': { padding: '2px' } // 👈 уменьшаем внутренние отступы
+                       }}
             />
+
 
 
 
