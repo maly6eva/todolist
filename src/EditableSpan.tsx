@@ -25,7 +25,7 @@ export const EditableSpan = ({oldTitle, onClick}: Props) => {
             ?
             <TextField
                 id="outlined-basic"
-                size="small"
+                size="medium"
                 variant="outlined"
                 value={updateTitle}
                      onBlur={editHandler}
